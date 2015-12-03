@@ -32,3 +32,4 @@ class LibccdConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["ccd"]
+
