@@ -52,7 +52,6 @@ class BuildPackage(object):
     def test(self, settings):
         argv =  " ".join(sys.argv[1:])
         command = "conan test %s %s --build=missing" % (settings, argv)
-        print('CMD: %s' % command)
         retcode = os.system(command)
         if retcode != 0:
             exit("Error while executing:\n\t %s" % command)
