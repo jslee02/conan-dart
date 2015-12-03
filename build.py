@@ -56,6 +56,34 @@ class BuildPackage(object):
         if retcode != 0:
             exit("Error while executing:\n\t %s" % command)
 
+    def test_windows(self, compiler_version):
+        # Check Visual Studio version
+        compiler = '-s compiler="Visual Studio" -s compiler.version=%d ' % compiler_version
+
+        # Static x86
+        self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=False')
+
+        # Static x86_64
+        self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=False')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=False')
+
+        # Shared x86
+        self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
+
+        # Shared x86_64
+        self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=True')
+        self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
+
     def run(self):
         result = self.change_dir()
         if not result:
@@ -70,31 +98,8 @@ class BuildPackage(object):
             self.overwrite_default_config_file()
 
         if platform.system() == "Windows":
-            compiler = '-s compiler="Visual Studio" -s compiler.version=12 '
-
-            # Static x86
-            self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=False')
-
-            # Static x86_64
-            self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=False')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=False')
-
-            # Shared x86
-            self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
-
-            # Shared x86_64
-            self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Debug -s compiler.runtime=MTd -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MD -o libccd:shared=True')
-            self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
+            self.test_windows(12)
+            self.test_windows(14)
 
         elif platform.system() == "Darwin":  # This is OS X. Darwin forms the core set of components upon which Mac OS X and iOS are based.
             compiler = '-s compiler=apple-clang -s compiler.version=7.0 '
