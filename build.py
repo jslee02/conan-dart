@@ -70,7 +70,14 @@ class BuildPackage(object):
             self.overwrite_default_config_file()
 
         if platform.system() == "Windows":
-            compiler = '-s compiler="Visual Studio" -s compiler.version=12 '
+            # Check Visual Studio version
+            visual_studio_version = os.getenv("VISUAL_STUDIO_VERSION")
+            if visual_studio_version == "Visual Studio 2013":
+                compiler = '-s compiler="Visual Studio" -s compiler.version=12 '
+            elif visual_studio_version == "Visual Studio 2015":
+                compiler = '-s compiler="Visual Studio" -s compiler.version=14 '
+            else:
+                exit("Unsupported Visual Studio version: %s" % visual_studio_version)
 
             # Static x86
             self.test(compiler + '-s arch=x86 -s build_type=Debug -s compiler.runtime=MDd -o libccd:shared=False')
