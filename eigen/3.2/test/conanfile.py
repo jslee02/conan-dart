@@ -7,7 +7,7 @@ class DefaultNameConan(ConanFile):
     version = "0.1"
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
-    requires = "eigen/3.2@jslee02/testing"
+    requires = "eigen/3.2@jslee02/stable"
 
     def build(self):
         cmake = CMake(self.settings)
