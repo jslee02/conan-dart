@@ -128,5 +128,5 @@ class BuildPackage(object):
 
 if __name__ == "__main__":
     BuildPackage('libccd', 2.0).run()
-
+    BuildPackage('eigen', 3.2).run()
 
