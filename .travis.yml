@@ -12,6 +12,8 @@ compiler:
 
 sudo: required
 
+dist: trusty
+
 matrix:
   exclude:
     - os: osx
