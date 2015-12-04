@@ -8,7 +8,7 @@ class FclConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=True"
-    requires = "libccd/2.0@jslee02/stable", "Boost/1.59.0@lasote/stable"
+    requires = "libccd/2.0@jslee02/stable", "Boost/1.57.0@lasote/stable"
     exports = "fcl/*"
     url="https://github.com/jslee02/conan-dart/tree/master/fcl/0.3"
 
