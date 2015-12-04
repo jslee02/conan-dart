@@ -1,6 +1,6 @@
 # Install gcc-multilib (fixed some errors)
-sudo apt-get update -qq
-sudo apt-get install gcc-multilib
+sudo apt-get -qq update
+sudo apt-get -qq --yes install gcc-multilib
 
 # Install CMake 3
 wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-Linux-64.tar.gz
