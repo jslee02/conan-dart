@@ -40,12 +40,12 @@ class BoostConan(ConanFile):
             return
         
         if self.settings.os == "Linux": # Fixme, just debian based works for building
-            self.run("sudo apt-get install libbz2-dev || true")
-            self.run("sudo apt-get install gcc-%s-multilib || true" % self.settings.compiler.version)
-            self.run("sudo apt-get install g++-%s-multilib || true" % self.settings.compiler.version)
+            self.run("sudo apt-get -qq --yes install libbz2-dev || true")
+            self.run("sudo apt-get -qq --yes install gcc-%s-multilib || true" % self.settings.compiler.version)
+            self.run("sudo apt-get -qq --yes install g++-%s-multilib || true" % self.settings.compiler.version)
             self.run("sudo dpkg --add-architecture i386 || true")
-            self.run("sudo apt-get update || true")
-            self.run("sudo apt-get install libbz2-dev:i386 || true")
+            self.run("sudo apt-get -qq update || true")
+            self.run("sudo apt-get -qq --yes install libbz2-dev:i386 || true")
 
         command = "bootstrap" if self.settings.os == "Windows" else "./bootstrap.sh"
         try:
