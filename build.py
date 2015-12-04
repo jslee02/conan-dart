@@ -87,13 +87,13 @@ class BuildPackage(object):
         self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
 
     def run(self):
-        self.conan_export()
-
         # Workaround: CONAN doesn't allow to run any command when invalid compiler is detected and saved to 'conan.conf' file.
         # Travis-CI's osx 10.11 image contains gcc 4.2.1, which is invalid compiler to CONAN. So we overwrite 'conan.conf' to
         # the version of that gcc is removed. This might not a smart way but at least it works for now...
         if platform.system() == "Darwin":
             self.overwrite_default_config_file()
+
+        self.conan_export()
 
         if platform.system() == "Windows":
             self.test_windows(12)
