@@ -125,8 +125,8 @@ class BuildPackage(object):
             self.test(compiler + '-s arch=x86_64 -s build_type=Release -o libccd:shared=True')
 
 if __name__ == "__main__":
-    BuildPackage('Boost', 1.59.0).run()
-    BuildPackage('eigen', 3.2).run()
-    BuildPackage('fcl', 0.3).run()
-    BuildPackage('libccd', 2.0).run()
+    BuildPackage("Boost", "1.59.0").run()
+    BuildPackage("eigen", "3.2").run()
+    BuildPackage("fcl", "0.3").run()
+    BuildPackage("libccd", "2.0").run()
 
