@@ -11,6 +11,7 @@ compiler:
   - clang
 
 sudo: required
+dist: trusty
 
 matrix:
   exclude:
