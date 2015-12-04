@@ -46,7 +46,7 @@ install:
 
 test_script:
   # Test CONAN
-  - "%PYTHON%/Scripts/nosetests"
+  - "%PYTHON%/Scripts/nosetests" >nul 2>&1
 
   # Test packages
   - ps: cd C:\projects\conan-dart\ci
