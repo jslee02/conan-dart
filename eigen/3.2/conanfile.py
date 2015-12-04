@@ -11,8 +11,8 @@ class EigenConan(ConanFile):
     url="https://github.com/jslee02/conan-dart/tree/master/eigen/3.2"
 
     def source(self):
-        self.run('hg clone --insecure https://bitbucket.org/eigen/eigen -u 3.2.7')
-        self.run('cd eigen')
+        self.run("hg clone --insecure https://bitbucket.org/eigen/eigen -u 3.2.7")
+        self.run("cd eigen")
 
     def package(self):
         self.copy("*", dst="include/Eigen", src="eigen/Eigen")
