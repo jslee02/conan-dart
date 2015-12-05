@@ -126,6 +126,6 @@ class BuildPackage(object):
 
 if __name__ == "__main__":
     BuildPackage('eigen', 3.2).run()
-    BuildPackage('fcl', 0.3).run()
+    # BuildPackage('fcl', 0.3).run()  # Disabled until Boost build issue is fixed
     BuildPackage('libccd', 2.0).run()
 
