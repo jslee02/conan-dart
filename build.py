@@ -35,23 +35,25 @@ class BuildPackage(object):
         config_file.write(default_client_conf_osx_10_11)
         config_file.close()
 
-    def change_dir(self):
+    def get_package_dir(self, name, version):
         base_path = os.path.dirname(os.path.abspath(__file__))
         package_version_path = '%s/%s' % (self._name, self._version)
         path = os.path.join(base_path, package_version_path)
-        try:
-            retcode = os.chdir(path)
-            return True
-        except:
-            print("Failed to find package at %s" % path)
-            return False
+        result = os.path.isdir(path)
+        result = result & os.path.exists(path)
+        if not result:
+            exit("Failed to find package at: %s" % path)
+        return path
 
     def conan_export(self):
-        os.system('conan export %s/%s' % (self._id, self._channel))
+        # check if the path exists
+        path = self.get_package_dir(self._name, self._version)
+        os.system('cd %s && conan export %s/%s' % (path, self._id, self._channel))
 
     def test(self, settings):
+        path = self.get_package_dir(self._name, self._version)
         argv =  " ".join(sys.argv[1:])
-        command = "conan test %s %s --build=missing" % (settings, argv)
+        command = "cd %s && conan test %s %s --build=missing" % (path, settings, argv)
         retcode = os.system(command)
         if retcode != 0:
             exit("Error while executing:\n\t %s" % command)
@@ -85,10 +87,6 @@ class BuildPackage(object):
         self.test(compiler + '-s arch=x86_64 -s build_type=Release -s compiler.runtime=MT -o libccd:shared=True')
 
     def run(self):
-        result = self.change_dir()
-        if not result:
-          return
-
         self.conan_export()
 
         # Workaround: CONAN doesn't allow to run any command when invalid compiler is detected and saved to 'conan.conf' file.
@@ -127,6 +125,7 @@ class BuildPackage(object):
             self.test(compiler + '-s arch=x86_64 -s build_type=Release -o libccd:shared=True')
 
 if __name__ == "__main__":
+    BuildPackage('eigen', 3.2).run()
+    # BuildPackage('fcl', 0.3).run()  # Disabled until Boost build issue is fixed
     BuildPackage('libccd', 2.0).run()
-
 
