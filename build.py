@@ -125,6 +125,7 @@ class BuildPackage(object):
             self.test(compiler + '-s arch=x86_64 -s build_type=Release -o libccd:shared=True')
 
 if __name__ == "__main__":
+    BuildPackage('console_bridge', '0.2.7').run()
     BuildPackage('eigen', 3.2).run()
     # BuildPackage('fcl', 0.3).run()  # Disabled until Boost build issue is fixed
     BuildPackage('libccd', 2.0).run()
