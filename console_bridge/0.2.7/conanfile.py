@@ -29,11 +29,11 @@ class ConsoleBridgeConan(ConanFile):
         self.copy("*.h", dst="include", src="console_bridge-0.2.7/include")
 
         # lib
-        self.copy("*.dll", dst="bin", src="fconsole_bridge-0.2.7/lib")
-        self.copy("*.lib", dst="lib", src="console_bridge-0.2.7/lib")
-        self.copy("*.a", dst="lib", src="console_bridge-0.2.7/lib")
-        self.copy("*.so*", dst="lib", src="console_bridge-0.2.7/lib")
-        self.copy("*.dylib*", dst="lib", src="console_bridge-0.2.7/lib")
+        self.copy("*.dll", dst="bin", src="fconsole_bridge-0.2.7")
+        self.copy("*.lib", dst="lib", src="console_bridge-0.2.7")
+        self.copy("*.a", dst="lib", src="console_bridge-0.2.7")
+        self.copy("*.so*", dst="lib", src="console_bridge-0.2.7")
+        self.copy("*.dylib*", dst="lib", src="console_bridge-0.2.7")
 
     def package_info(self):
         self.cpp_info.libs = ["console_bridge"]
