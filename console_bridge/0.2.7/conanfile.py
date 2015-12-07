@@ -8,7 +8,6 @@ class ConsoleBridgeConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=True"
-    # requires = "Boost/1.59.0@lasote/stable"
     exports = "console_bridge/*"
     url="https://github.com/jslee02/conan-dart/tree/master/console_bridge/0.2.7"
 
@@ -16,6 +15,10 @@ class ConsoleBridgeConan(ConanFile):
         self.global_system_requirements=True
         if self.settings.os == "Linux":
             self.run("sudo apt-get install libboost-all-dev || true ")
+
+    def requirements(self):
+        if self.settings.os == "Windows":
+             self.requires("Boost/1.59.0@lasote/stable")
 
     def source(self):
         zip_name = "console_bridge-0.2.7.zip"
